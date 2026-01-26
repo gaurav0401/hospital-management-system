@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Edit Availability</h3>
+
+<form method="post">
+  {% csrf_token %}
+  <input type="date" name="date" value="{{ slot.date }}" class="form-control mb-2">
+  <input type="time" name="start_time" value="{{ slot.start_time }}" class="form-control mb-2">
+  <input type="time" name="end_time" value="{{ slot.end_time }}" class="form-control mb-2">
+
+  <button class="btn btn-success">Save Changes</button>
+</form>
+
+{% endblock %}

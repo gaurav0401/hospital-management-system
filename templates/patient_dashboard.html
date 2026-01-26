@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- ========================= -->
+<!-- Patient Info Card -->
+<!-- ========================= -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+  <h5 class="mb-0">Patient Information</h5>
+
+  {% if patient.google_token %}
+  <a href="{% url 'google_disconnect' %}"
+     class="btn btn-sm btn-light"
+     onclick="return confirm('Disconnect Google Calendar?')">
+    <i class="bi bi-x-circle"></i> Disconnect Google Calendar
+  </a>
+{% else %}
+  <a href="{% url 'google_login' %}" class="btn btn-sm btn-light">
+    <i class="bi bi-google"></i> Connect Google Calendar
+  </a>
+{% endif %}
+
+</div>
+
+
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-6 mb-2">
+        <strong>Full Name:</strong><br>
+        {{ patient.first_name }} {{ patient.last_name }}
+      </div>
+
+      <div class="col-md-6 mb-2">
+        <strong>Email:</strong><br>
+        {{ patient.email }}
+      </div>
+
+      <div class="col-md-6 mb-2">
+        <strong>Contact:</strong><br>
+        {{ patient.contact }}
+      </div>
+
+      <div class="col-md-6 mb-2">
+        <strong>Gender:</strong><br>
+        {{ patient.gender|title }}
+      </div>
+
+      <div class="col-md-6 mb-2">
+        <strong>Age:</strong><br>
+        {% if patient.age %}
+          {{ patient.age }} years
+        {% else %}
+          Not provided
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ========================= -->
+<!-- My Appointments -->
+<!-- ========================= -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header bg-warning">
+    <h5 class="mb-0">My Appointments</h5>
+  </div>
+
+  <div class="card-body">
+
+    {% if my_appointments %}
+      <table class="table table-bordered align-middle">
+        <thead>
+          <tr>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for appointment in my_appointments %}
+          <tr>
+            <td>
+              Dr. {{ appointment.doctor.first_name }}
+              {{ appointment.doctor.last_name }}
+            </td>
+            <td>{{ appointment.availability.date }}</td>
+            <td>
+              {{ appointment.availability.start_time }}
+              -
+              {{ appointment.availability.end_time }}
+            </td>
+            <td>
+              <span class="badge bg-success">Booked</span>
+            </td>
+            <td>
+              <a href="{% url 'cancel_booking' appointment.id %}"
+                 class="btn btn-sm btn-danger"
+                 onclick="return confirm('Are you sure you want to cancel this appointment?')">
+                Cancel
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-info mb-0 text-center">
+        You have no booked appointments.
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+
+<!-- ========================= -->
+<!-- Available Slots Section -->
+<!-- ========================= -->
+<div class="card shadow-sm">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">Available Appointment Slots</h5>
+  </div>
+
+  <div class="card-body">
+
+    {% if available_slots %}
+      <table class="table table-bordered align-middle">
+        <thead>
+          <tr>
+            <th>Doctor</th>
+            <th>Specialty</th>
+            <th>Experience</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for slot in available_slots %}
+          <tr>
+            <td>
+              Dr. {{ slot.doctor.first_name }}
+              {{ slot.doctor.last_name }}
+            </td>
+
+            <td>
+              {% if slot.doctor.specialty %}
+                {{ slot.doctor.specialty }}
+              {% else %}
+                <span class="text-muted">Not specified</span>
+              {% endif %}
+            </td>
+
+            <td>
+              {% if slot.doctor.years_of_experience %}
+                {{ slot.doctor.years_of_experience }} yrs
+              {% else %}
+                <span class="text-muted">—</span>
+              {% endif %}
+            </td>
+
+            <td>{{ slot.date }}</td>
+
+            <td>
+              {{ slot.start_time }} - {{ slot.end_time }}
+            </td>
+
+            <td>
+              <a href="{% url 'book_slot' slot.id %}"
+                 class="btn btn-sm btn-success">
+                Book
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-info mb-0 text-center">
+        No available slots at the moment.
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+<br>
+{% endblock %}

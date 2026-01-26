@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load form_tags %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+
+        <h4 class="mb-4 text-center text-primary">Doctor Registration</h4>
+
+        <form method="post">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          <!-- Username -->
+         <div class="mb-3">
+            <label class="form-label">Username</label>
+            {{ form.username |add_class:"form-control" }}
+
+            {% if form.username.errors %}
+              <div class="text-danger small mt-1">
+                {% for error in form.username.errors %}
+                  • {{ error }}<br>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- First + Last Name -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">First Name</label>
+              {{ form.first_name|add_class:"form-control" }}
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Last Name</label>
+              {{ form.last_name|add_class:"form-control" }}
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+              <label class="form-label">Email</label>
+              {{ form.email |add_class:"form-control" }}
+
+              {% if form.email.errors %}
+                <div class="text-danger small mt-1">
+                  {% for error in form.email.errors %}
+                    • {{ error }}<br>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+
+          <!-- Contact -->
+          <div class="mb-3">
+            <label class="form-label">Contact Number</label>
+            {{ form.contact|add_class:"form-control" }}
+          </div>
+
+          <!-- Gender -->
+          <div class="mb-3">
+            <label class="form-label">Gender</label>
+            {{ form.gender|add_class:"form-select" }}
+          </div>
+
+          <!-- Specialty + Experience -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Specialty</label>
+              {{ form.specialty|add_class:"form-control" }}
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Experience (Years)</label>
+              {{ form.years_of_experience|add_class:"form-control" }}
+            </div>
+          </div>
+
+          <!-- Passwords -->
+          <div class="row">
+         <div class="col-md-6 mb-3">
+  <label class="form-label">Password</label>
+  <div class="input-group">
+    {{ form.password1|add_class:"form-control"  }}
+    <button class="btn btn-outline-secondary"
+            type="button"
+            onclick="togglePassword('id_password1', this)">
+      Show
+    </button>
+  </div>
+</div>
+
+         <div class="col-md-6 mb-3">
+  <label class="form-label">Confirm Password</label>
+  <div class="input-group">
+    {{ form.password2 |add_class:"form-control" }}
+    <button class="btn btn-outline-secondary"
+            type="button"
+            onclick="togglePassword('id_password2', this)">
+      Show
+    </button>
+  </div>
+</div>
+          </div>  
+
+          
+ <small class="text-muted">
+  Password must be at least 8 characters, include 1 uppercase letter and 1 number.
+</small>
+          <br>
+          <br>
+
+          <button class="btn btn-primary w-100">
+            Create Doctor Account
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

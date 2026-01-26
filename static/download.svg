@@ -1,0 +1,9 @@
+<svg width="160" height="40" viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="40" height="40" rx="8" fill="#198754"></rect>
+  <path d="M20 10 C14 10 10 15 10 20 C10 25 14 30 20 30 C26 30 30 25 30 20" stroke="white" stroke-width="2" fill="none"></path>
+  <line x1="20" y1="14" x2="20" y2="26" stroke="white" stroke-width="2"></line>
+  <line x1="14" y1="20" x2="26" y2="20" stroke="white" stroke-width="2"></line>
+  <text x="50" y="26" font-size="20" font-weight="bold" fill="#212529">
+    DocEase
+  </text>
+</svg>

@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>🧑‍💼 Admin Dashboard</h2>
+
+
+
+<div class="row mb-4 mt-5">
+  <div class="col-md-4">
+    <div class="alert alert-primary">
+      Doctors: {{ total_doctors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="alert alert-success">
+      Patients: {{ total_patients }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="alert alert-warning">
+      Appointments: {{ total_bookings }}
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="card shadow-sm mb-5">
+<div class="card-header bg-dark text-white">
+    <h5 class="mb-0">All Appointments</h5>
+  </div>
+
+<table class="table table-bordered">
+<tr>
+  <th>Doctor</th>
+  <th>Patient</th>
+  <th>Date</th>
+  <th>Time</th>
+  <th>Action</th>
+</tr>
+
+{% for booking in bookings %}
+<tr>
+  <td>Dr. {{ booking.doctor.username }}</td>
+  <td>{{ booking.patient.username }}</td>
+  <td>{{ booking.availability.date }}</td>
+  <td>
+    {{ booking.availability.start_time }} -
+    {{ booking.availability.end_time }}
+  </td>
+  <td>
+    <a href="{% url 'admin_cancel_booking' booking.id %}"
+       class="btn btn-sm btn-danger"
+       onclick="return confirm('Cancel this appointment?')">
+       Cancel
+    </a>
+  </td>
+</tr>
+{% endfor %}
+</table>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- Doctors Section -->
+<!-- ========================= -->
+<div class="card shadow-sm mb-5">
+  <div class="card-header bg-info text-white">
+    <h5 class="mb-0">Doctors</h5>
+  </div>
+
+  <div class="card-body">
+    {% if doctors %}
+      <table class="table table-bordered align-middle">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Gender</th>
+            <th>Specialty</th>
+            <th>Experience</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for doctor in doctors %}
+          <tr>
+            <td>
+              Dr. {{ doctor.first_name }} {{ doctor.last_name }}
+            </td>
+            <td>{{ doctor.email }}</td>
+            <td>{{ doctor.contact }}</td>
+            <td>{{ doctor.gender|title }}</td>
+            <td>
+              {{ doctor.specialty|default:"—" }}
+            </td>
+            <td>
+              {% if doctor.years_of_experience %}
+                {{ doctor.years_of_experience }} yrs
+              {% else %}
+                —
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-info mb-0">
+        No doctors registered.
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ========================= -->
+<!-- Patients Section -->
+<!-- ========================= -->
+<div class="card shadow-sm">
+  <div class="card-header bg-success text-white">
+    <h5 class="mb-0">Patients</h5>
+  </div>
+
+  <div class="card-body">
+    {% if patients %}
+      <table class="table table-bordered align-middle">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Gender</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for patient in patients %}
+          <tr>
+            <td>
+              {{ patient.first_name }} {{ patient.last_name }}
+            </td>
+            <td>{{ patient.email }}</td>
+            <td>{{ patient.contact }}</td>
+            <td>{{ patient.gender|title }}</td>
+            <td>
+              {% if patient.age %}
+                {{ patient.age }}
+              {% else %}
+                —
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-info mb-0">
+        No patients registered.
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<br>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Add Availability</h3>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="date" name="date" class="form-control mb-2" required>
+    <input type="time" name="start_time" class="form-control mb-2" required>
+    <input type="time" name="end_time" class="form-control mb-2" required>
+
+    <button class="btn btn-success">Save</button>
+</form>
+
+{% endblock %}
