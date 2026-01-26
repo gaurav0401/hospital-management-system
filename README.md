@@ -92,11 +92,15 @@ This project demonstrates real-world backend concepts such as:
 
 ## 📁 Project Structure
 
+### Architecture
+<img width="542" height="795" alt="image" src="https://github.com/user-attachments/assets/88ba38ec-646e-4347-a29d-04213e6ff45e" />
+
+
+
 ### App Overview
 
 - **accounts/** – User authentication, roles, and permissions  
 - **doctors/** – Doctor profiles, availability, and details  
-- **patients/** – Patient records and history  
 - **bookings/** – Appointment scheduling and management  
 - **utils/**  
   - `google_calendar.py` – Google Calendar API integration  
