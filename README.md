@@ -6,6 +6,7 @@ This project demonstrates real-world backend concepts such as:
 - Role-based authentication
 - Transaction-safe booking
 - External API integration (Google Calendar)
+- Serverless Email Service (offline AWS Lambda based)
 - Clean separation of concerns
 
 ---
@@ -77,6 +78,7 @@ This project demonstrates real-world backend concepts such as:
 - **Django**
 - **Django ORM**
 - **SQLite**
+- **AWS Lambda**
 
 ### Frontend
 - **HTML**
@@ -86,6 +88,7 @@ This project demonstrates real-world backend concepts such as:
 ### Integrations
 - **Google Calendar API**
 - **OAuth2**
+- **Serverless Service**
 
 
 ---
@@ -93,7 +96,8 @@ This project demonstrates real-world backend concepts such as:
 ## 📁 Project Structure
 
 ### Architecture
-<img width="542" height="795" alt="image" src="https://github.com/user-attachments/assets/88ba38ec-646e-4347-a29d-04213e6ff45e" />
+<img width="593" height="788" alt="image" src="https://github.com/user-attachments/assets/a71b8506-2931-4e39-b409-97c44de49589" />
+
 
 
 
@@ -103,5 +107,6 @@ This project demonstrates real-world backend concepts such as:
 - **doctors/** – Doctor profiles, availability, and details  
 - **bookings/** – Appointment scheduling and management  
 - **utils/**  
-  - `google_calendar.py` – Google Calendar API integration  
+  - `google_calendar.py` – Google Calendar API integration
+  - `email_service.py` - Serverless Email Service
 - **templates/** – HTML templates for the application UI  
