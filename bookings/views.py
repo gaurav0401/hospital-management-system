@@ -169,12 +169,12 @@ def book_slot(request, slot_id):
     if request.user.google_token:
         messages.success(
             request,
-            "Appointment booked and synced with Google Calendar."
+            "Appointment booked and synced with Google Calendar.Please check your email for confirmation."
         )
     else:
         messages.success(
             request,
-            "Appointment booked successfully. Connect Google Calendar to sync events."
+            "Appointment booked successfully. Connect Google Calendar to sync events. Please check your email for confirmation."
         )
 
     return redirect('patient_dashboard')

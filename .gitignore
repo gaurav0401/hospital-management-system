@@ -4,6 +4,4 @@ __pycache__/
 *.pyc
 venv/
 .env.*
-email-service/handler.py
-utils/email_service.py
-utils/google_calendar.py
+

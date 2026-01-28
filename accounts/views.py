@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login , authenticate
+
+from utils.email_service import send_email
 from .models import User
 from django.contrib import messages
 
@@ -36,7 +38,16 @@ def signup(request):
         )
 
         login(request, user)
-        messages.success(request, "Account created successfully!")
+        send_email(
+         action="SIGNUP_WELCOME",
+         to_email=request.user.email,
+         data={
+                "name": request.user.first_name
+                
+            }
+        )
+        messages.success(request, "Account created successfully, Please check your email for confirmation.")
+
         return redirect('dashboard')
 
     return render(request, 'signup.html')
@@ -151,7 +162,16 @@ def doctor_signup(request):
         user.role = 'doctor'
         user.set_password(form.cleaned_data['password1'])
         user.save()
-        messages.success(request, "Doctor account created successfully.")
+        send_email(
+         action="SIGNUP_WELCOME",
+         to_email=form.cleaned_data['email'],
+         data={
+                "name": form.cleaned_data['first_name'] + " " + form.cleaned_data['last_name']
+                
+            }
+        )
+        messages.success(request, "Doctor account created successfully, Please check your email for confirmation.")
+       
         return redirect('login')
 
     return render(request, 'signup_doctor.html', {'form': form})
@@ -165,7 +185,15 @@ def patient_signup(request):
         user.role = 'patient'
         user.set_password(form.cleaned_data['password1'])
         user.save()
-        messages.success(request, "Patient account created successfully.")
+        send_email(
+         action="SIGNUP_WELCOME",
+         to_email=form.cleaned_data['email'],
+         data={
+                "name": form.cleaned_data['first_name'] + " " + form.cleaned_data['last_name']
+                
+            }
+        )
+        messages.success(request, "Patient account created successfully, Please check your email for confirmation.")
         return redirect('login')
 
     return render(request, 'signup_patient.html', {'form': form})
