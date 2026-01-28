@@ -6,8 +6,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-print("SENDER_EMAIL:", os.getenv("SENDER_EMAIL"))
-print("SENDER_PASSWORD:", os.getenv("SENDER_PASSWORD"))
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 
